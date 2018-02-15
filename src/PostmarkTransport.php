@@ -178,6 +178,23 @@ class PostmarkTransport extends Transport
             $data['HtmlBody'] = $html->getBody();
         }
 
+        if ($message->getChildren()) {
+            $data['Attachments'] = array();
+            foreach ($message->getChildren() as $attachment) {
+                if (is_object($attachment) and $attachment instanceof \Swift_Mime_Attachment) {
+                    $a = array(
+                        'Name' => $attachment->getFilename(),
+                        'Content' => base64_encode($attachment->getBody()),
+                        'ContentType' => $attachment->getContentType()
+                    );
+                    if($attachment->getDisposition() != 'attachment' && $attachment->getId() != NULL) {
+                        $a['ContentID'] = 'cid:'.$attachment->getId();
+                    }
+                    $data['Attachments'][] = $a;
+                }
+            }
+        }
+
         return $data;
     }
 
