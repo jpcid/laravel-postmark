@@ -19,7 +19,7 @@ class PostmarkServiceProvider extends ServiceProvider
         $this->app['swift.transport']->extend('postmark', function () use ($config) {
             return new PostmarkTransport(
                 $this->guzzle($config),
-                $config['secret']
+                $config['token']
             );
         });
     }

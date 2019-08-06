@@ -39,7 +39,7 @@ return [
     // ...
     
     'postmark' => [
-        'secret' => env('POSTMARK_SECRET'),    
+        'token' => env('POSTMARK_TOKEN'),    
     ],
 ];
 ```
@@ -51,7 +51,7 @@ MAIL_DRIVER=postmark
 
 // ...
 
-POSTMARK_SECRET=YOUR-SERVER-KEY-HERE
+POSTMARK_TOKEN=YOUR-SERVER-KEY-HERE
 ```
 
 That's it! The mail system continues to work the exact same way as before and you can switch out Postmark for any of the pre-packaged Laravel mail drivers (smtp, mailgun, log, etc...).
